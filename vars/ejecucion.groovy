@@ -35,7 +35,7 @@ def call(){
 		post {
 			success {
                 		script {
-					if (params.buildTool == "gradle") {
+					if (params.stage != '') {
 						slackSend color: 'good', message: 'Ejecución Exitosa!'
 					} else {
 						slackSend color: 'danger', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución fallida en stage ${params.stage}"
