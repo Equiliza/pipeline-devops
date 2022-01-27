@@ -6,9 +6,46 @@
 
 def call(){
   
-  stage(){
-    //Escribir directamente el código del stage, sin agregarle otra clausula de Jenkins.
-  }
+	pipeline {
+    	agent any
+	
+		environment {
+	    	STAGE = ''
+		}
+	
+    		parameters {
+  			choice choices: ['gradle', 'maven'], description: 'Indicar Herramienta de Construcción', name: 'buildTool'
+    		}
+	
+    		stages {
+        		stage('PipeLine') {
+            			steps {
+                			script {
+						if (params.buildTool == "gradle") {
+							println "gradle"
+							def ejecucion = load "gradle.groovy"
+							ejecucion.call()
+						} else {
+							println "maven"
+							def ejecucion = load "maven.groovy"
+							ejecucion.call()
+						}
+                			}
+            			}
+        		}
+    		}
+	
+		post {
+			success {
+				slackSend color: 'good', message: 'Ejecución Exitosa!'
+			}
+	
+			failure {
+				slackSend color: 'danger', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución fallida en stage ${STAGE}"
+				error "Ejecución fallida en stage ${STAGE}"
+			}
+		}
+	}
 
 }
 
