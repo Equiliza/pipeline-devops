@@ -34,11 +34,13 @@ def call(){
 	
 		post {
 			success {
-				if (env.STAGE_NAME != '') {
-					slackSend color: 'good', message: 'Ejecución Exitosa!'
-				} else {
-					slackSend color: 'danger', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución fallida en stage ${params.stage}"
-					error "Ejecución fallida en stage ${params.stage}"
+                		script {
+					if (STAGE != '') {
+						slackSend color: 'good', message: 'Ejecución Exitosa!'
+					} else {
+						slackSend color: 'danger', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución fallida en stage ${params.stage}"
+						error "Ejecución fallida en stage ${params.stage}"
+					}
 				}
 			}
 	
