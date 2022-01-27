@@ -10,7 +10,7 @@ def call(){
     	agent any
 	
 		environment {
-	    	STAGE = ''
+	    		STAGE = ''
 		}
 	
     		parameters {
