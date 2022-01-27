@@ -15,6 +15,7 @@ def call(){
 	
     		parameters {
   			choice choices: ['gradle', 'maven'], description: 'Indicar Herramienta de Construcción', name: 'buildTool'
+			string(name: 'stage', defaultValue: '')
     		}
 	
     		stages {
