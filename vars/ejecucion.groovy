@@ -18,21 +18,16 @@ def call(){
         		stage('PipeLine') {
             			steps {
                 			script {
+						env.STAGE = null
+						env.PSTAGE = null
 						if (params.stage.length() == 0) { 
-							if (params.buildTool == "gradle") {
-								gradle()
-							} else {
-								maven()
-							}
+							if (params.buildTool == "gradle") { gradle() } else { maven() }
 						} else {
 							def stages = params.stage.split(";")
 							for (i=0; i < stages.size(); i++) { 
 	    							env.PSTAGE = stages[i]
-								if (params.buildTool == "gradle") {
-									gradle()
-								} else {
-									maven()
-								}
+								if (params.buildTool == "gradle") { gradle() } else { maven() }
+								if (env.STAGE == null) { break }
 							}
 						}
                 			}
