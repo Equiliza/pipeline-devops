@@ -24,14 +24,12 @@ def call(){
             			steps {
                 			script {
 						if (params.stage.length() == 0) { 
-							println "cero"
 							if (params.buildTool == "gradle") {
 								gradle()
 							} else {
 								maven()
 							}
 						} else {
-							println "no cero"
 							def stages = params.stage.split(";")
 							for (i=0; i < stages.size(); i++) { 
 	    							PSTAGE = stages[i]

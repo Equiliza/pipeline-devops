@@ -7,6 +7,8 @@
 def call(){
   
         stage('Build') {
+		println "${env.PSTAGE}"
+		println "${env.STAGE_NAME}"
 		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == null) {
 		    STAGE=env.STAGE_NAME
                     bat "./mvnw.cmd clean compile -e"                       
