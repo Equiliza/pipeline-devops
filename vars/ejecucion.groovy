@@ -24,6 +24,7 @@ def call(){
             			steps {
                 			script {
 						def stages = params.stage.split(";")
+						println stages.size() 
 						if (stages.size() > 0) { 
 							for (i=0; i < stages.size(); i++) { 
 	    							PSTAGE = stages[i]
