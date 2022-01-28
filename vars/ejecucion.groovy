@@ -24,7 +24,7 @@ def call(){
             			steps {
                 			script {
 						def stages = params.stage.split(";")
-						if (params.stage.length == 0) { 
+						if (params.stage.length() == 0) { 
 							println stages.size() 
 							if (params.buildTool == "gradle") {
 								gradle()
