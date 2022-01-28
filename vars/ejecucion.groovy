@@ -22,10 +22,16 @@ def call(){
         		stage('PipeLine') {
             			steps {
                 			script {
-						if (params.buildTool == "gradle") {
-							gradle()
-						} else {
-							maven()
+						def stages = params.stage.split(";")
+						params.stage=stages[i]
+						println stages[i]
+						println "${params.stage}"
+						for (i=0; i < stages.size(); i++) { 
+							if (params.buildTool == "gradle") {
+								gradle()
+							} else {
+								maven()
+							}
 						}
                 			}
             			}
@@ -35,18 +41,11 @@ def call(){
 		post {
 			success {
                 		script {
-					def stages = params.stage.split(";")
-					for (i=0; i < stages.size(); i++) { 
-						params.stage = stages[i]
-						println stages[i]
-						println ${params.stage}
-
-						if (env.STAGE != null) {
-							slackSend color: 'good', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución Exitosa!"
-						} else {
-							slackSend color: 'danger', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución fallida en stage ${params.stage}"
-							error "Ejecución fallida en stage ${params.stage}"
-						}
+					if (env.STAGE != null) {
+						slackSend color: 'good', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución Exitosa!"
+					} else {
+						slackSend color: 'danger', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución fallida en stage ${params.stage}"
+						error "Ejecución fallida en stage ${params.stage}"
 					}
 				}
 			}
