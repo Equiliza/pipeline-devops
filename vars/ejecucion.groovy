@@ -11,7 +11,6 @@ def call(){
 	
 		environment {
 	    		STAGE = ''
-	    		PSTAGE = ''
 		}
 	
     		parameters {
@@ -30,10 +29,9 @@ def call(){
 								maven()
 							}
 						} else {
-							//def stages = params.stage.split(";")
-							def stages = params.stage.tokenize(";")
+							def stages = params.stage.split(";")
 							for (i=0; i < stages.size(); i++) { 
-	    							PSTAGE = stages[i]
+	    							env.PSTAGE = stages[i]
 	    							println stages[i]
 								println "stage ${env.PSTAGE}"
 								if (params.buildTool == "gradle") {
