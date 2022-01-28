@@ -42,6 +42,7 @@ def call(){
 				} else {
 					slackSend color: 'danger', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución fallida en stage ${env.PSTAGE}"
 					error "Ejecución fallida en stage ${env.PSTAGE}"
+				}
 				
 			}
 	
