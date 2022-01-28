@@ -37,13 +37,16 @@ def call(){
                 		script {
 					def stages = params.stage.split(";")
 					for (i=0; i < stages.size(); i++) { 
+						params.stage = stages[i]
 						println stages[i]
-					}
-					if (env.STAGE != null) {
-						slackSend color: 'good', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución Exitosa!"
-					} else {
-						slackSend color: 'danger', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución fallida en stage ${params.stage}"
-						error "Ejecución fallida en stage ${params.stage}"
+						println ${params.stage}
+
+						if (env.STAGE != null) {
+							slackSend color: 'good', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución Exitosa!"
+						} else {
+							slackSend color: 'danger', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución fallida en stage ${params.stage}"
+							error "Ejecución fallida en stage ${params.stage}"
+						}
 					}
 				}
 			}
