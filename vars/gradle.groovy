@@ -7,13 +7,13 @@
 def call(){
   
         stage('BuildTestJar') {
-		if (params.stage == env.STAGE_NAME || params.stage == '') {
+		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == '') {
 		    STAGE=env.STAGE_NAME
                     bat "./gradlew clean build"                       
 		}
         }
         stage('Sonar') {
-		if (params.stage == env.STAGE_NAME || params.stage == '') {
+		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == '') {
 		    STAGE=env.STAGE_NAME
                     def scannerHome = tool 'sonar-scanner';
                     withSonarQubeEnv('sonar-server') {
@@ -22,20 +22,20 @@ def call(){
 		}
         }
         stage('Run') {
-		if (params.stage == env.STAGE_NAME || params.stage == '') {
+		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == '') {
 		    STAGE=env.STAGE_NAME
                     bat "start /min gradlew bootRun &"
                     sleep 20
 		}
         }
         stage('TestApp') {
-		if (params.stage == env.STAGE_NAME || params.stage == '') {
+		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == '') {
 		    STAGE=env.STAGE_NAME
                     bat "start chrome http://localhost:8082/rest/mscovid/test?msg=testing"
 		}
         }
 	stage('Nexus Upload 001') {
-		if (params.stage == env.STAGE_NAME || params.stage == '') {
+		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == '') {
 		    STAGE=env.STAGE_NAME
 		    nexusPublisher nexusInstanceId: 'test-nexus', nexusRepositoryId: 'test.nexus',
 		    packages: [[$class: 'MavenPackage',
@@ -50,14 +50,14 @@ def call(){
 		}
 	}
         stage('Nexus Download') {
-		if (params.stage == env.STAGE_NAME || params.stage == '') {
+		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == '') {
 		    STAGE=env.STAGE_NAME
                     bat "curl -X GET -u admin:Pelusa50# http://localhost:8081/repository/test.nexus/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"  
                     bat "dir" 
 		}
         }
 	stage('Nexus Upload 100') {
-		if (params.stage == env.STAGE_NAME || params.stage == '') {
+		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == '') {
 		    STAGE=env.STAGE_NAME
 		    nexusPublisher nexusInstanceId: 'test-nexus', nexusRepositoryId: 'test.nexus',
 		    packages: [[$class: 'MavenPackage',
