@@ -24,8 +24,14 @@ def call(){
             			steps {
                 			script {
 						def stages = params.stage.split(";")
-						println stages.size() 
-						if (params.stage != '') { 
+						if (params.stage.length == 0) { 
+							println stages.size() 
+							if (params.buildTool == "gradle") {
+								gradle()
+							} else {
+								maven()
+							}
+						} else {
 							for (i=0; i < stages.size(); i++) { 
 	    							PSTAGE = stages[i]
 								println stages[i]
@@ -35,12 +41,6 @@ def call(){
 								} else {
 									maven()
 								}
-							}
-						} else {
-							if (params.buildTool == "gradle") {
-								gradle()
-							} else {
-								maven()
 							}
 						}
                 			}
