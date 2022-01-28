@@ -11,6 +11,7 @@ def call(){
 	
 		environment {
 	    		STAGE = ''
+	    		PSTAGE = ''
 		}
 	
     		parameters {
@@ -23,9 +24,9 @@ def call(){
             			steps {
                 			script {
 						def stages = params.stage.split(";")
-						params.stage=stages[i]
+						PSTAGE=stages[i]
 						println stages[i]
-						println "${params.stage}"
+						println "${PSTAGE}"
 						for (i=0; i < stages.size(); i++) { 
 							if (params.buildTool == "gradle") {
 								gradle()
