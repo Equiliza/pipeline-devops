@@ -7,7 +7,7 @@
 def call(){
   
         stage('BuildTestJar') {
-		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == '') {
+		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == null) {
 		    STAGE=env.STAGE_NAME
                     bat "./gradlew clean build"                       
 		}
