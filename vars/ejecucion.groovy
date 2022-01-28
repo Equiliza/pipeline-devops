@@ -36,7 +36,9 @@ def call(){
 			success {
                 		script {
 					def stages = params.stage.split(";")
-					println stages[0]
+					for (i=0; i < stages.size; i++) { 
+						println stages[i]
+					}
 					if (env.STAGE != null) {
 						slackSend color: 'good', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución Exitosa!"
 					} else {
