@@ -7,25 +7,25 @@
 def call(){
   
         stage('Build') {
-		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == '') {
+		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == null) {
 		    STAGE=env.STAGE_NAME
                     bat "./mvnw.cmd clean compile -e"                       
 		}
         }
         stage('Test') {
-		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == '') {
+		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == null) {
 		    STAGE=env.STAGE_NAME
                     bat "./mvnw.cmd clean test -e"                       
 		}
         }
         stage('Jar') {
-		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == '') {
+		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == null) {
 		    STAGE=env.STAGE_NAME
                     bat "./mvnw.cmd clean package -e"                       
 		}
         }
         stage('Sonar') {
-		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == '') {
+		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == null) {
 		    STAGE=env.STAGE_NAME
                     def scannerHome = tool 'sonar-scanner';
                     withSonarQubeEnv('sonar-server') {
@@ -34,20 +34,20 @@ def call(){
 		}
         }
         stage('Run') {
-		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == '') {
+		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == null) {
 		    STAGE=env.STAGE_NAME
                     bat "start /min mvnw spring-boot:run &"
                     sleep 20
 		}
         }
         stage('TestApp') {
-		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == '') {
+		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == null) {
 		    STAGE=env.STAGE_NAME
                     bat "start chrome http://localhost:8082/rest/mscovid/test?msg=testing"
 		}
         }
 	stage('NexusUpload') {
-		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == '') {
+		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == null) {
 		    STAGE=env.STAGE_NAME
 		    nexusPublisher nexusInstanceId: 'test-nexus', nexusRepositoryId: 'test.nexus',
 		    packages: [[$class: 'MavenPackage',
@@ -62,7 +62,7 @@ def call(){
 		}
 	}
         stage('NexusDownload') {
-		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == '') {
+		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == null) {
 		    STAGE=env.STAGE_NAME
                     bat "curl -X GET -u admin:Pelusa50# http://localhost:8081/repository/test.nexus/com/devopsusach2020/DevOpsUsach2020/0.0.1/DevOpsUsach2020-0.0.1.jar -O"  
                     bat "dir" 
