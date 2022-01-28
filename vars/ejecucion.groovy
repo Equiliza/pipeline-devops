@@ -24,8 +24,10 @@ def call(){
             			steps {
                 			script {
 						def stages = params.stage.split(";")
-						println stages[i]
 						for (i=0; i < stages.size(); i++) { 
+	    						PSTAGE = stages[i]
+							println stages[i]
+							println "${PSTAGE}"
 							if (params.buildTool == "gradle") {
 								gradle()
 							} else {
