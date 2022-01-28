@@ -36,7 +36,7 @@ def call(){
 			success {
                 		script {
 					def stages = params.stage.split(";")
-					for (i=0; i < stages.size; i++) { 
+					for (i=0; i < stages.size(); i++) { 
 						println stages[i]
 					}
 					if (env.STAGE != null) {
