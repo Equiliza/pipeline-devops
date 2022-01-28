@@ -32,7 +32,7 @@ def call(){
 						} else {
 							def stages = params.stage.split(";")
 							for (i=0; i < stages.size(); i++) { 
-	    							PSTAGE = stages[i]
+	    							PSTAGE = ${stages[i]}
 	    							println stages[i]
 								println "stage ${env.PSTAGE}"
 								if (params.buildTool == "gradle") {
