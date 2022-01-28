@@ -24,9 +24,8 @@ def call(){
             			steps {
                 			script {
 						def stages = params.stage.split(";")
-						def tope = stages.size()
-						if (tope > 0) { 
-							for (i=0; i < tope; i++) { 
+						if (stages.size() > 0) { 
+							for (i=0; i < stages.size(); i++) { 
 	    							PSTAGE = stages[i]
 								println stages[i]
 								println "${PSTAGE}"
