@@ -27,7 +27,7 @@ def call(){
 							for (i=0; i < stages.size(); i++) { 
 	    							env.PSTAGE = stages[i]
 								if (params.buildTool == "gradle") { gradle() } else { maven() }
-								if (env.STAGE == null) { break }
+								if (env.STAGE == null) { break } else { env.STAGE = null } 
 							}
 						}
                 			}
