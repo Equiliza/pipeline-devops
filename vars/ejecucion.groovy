@@ -24,10 +24,19 @@ def call(){
             			steps {
                 			script {
 						def stages = params.stage.split(";")
-						for (i=0; i < stages.size(); i++) { 
-	    						PSTAGE = stages[i]
-							println stages[i]
-							println "${PSTAGE}"
+						def tope = stages.size()
+						if (tope > 0) { 
+							for (i=0; i < tope; i++) { 
+	    							PSTAGE = stages[i]
+								println stages[i]
+								println "${PSTAGE}"
+								if (params.buildTool == "gradle") {
+									gradle()
+								} else {
+									maven()
+								}
+							}
+						} else {
 							if (params.buildTool == "gradle") {
 								gradle()
 							} else {
