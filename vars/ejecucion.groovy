@@ -35,6 +35,7 @@ def call(){
 		post {
 			success {
                 		script {
+				        println env.STAGE
 					if (env.STAGE != '') {
 						slackSend color: 'good', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución Exitosa!"
 					} else {
