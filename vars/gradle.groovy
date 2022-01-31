@@ -6,9 +6,11 @@
 
 def call(String PipeLineType){
 
-	figlet PipeLineType
+	figlet "Maven"
 
 	if (PipeLineType == 'CI') {
+		figlet "Integracion Continua"
+
         	stage('BuildTestJar') {
 		    	env.STAGE=env.STAGE_NAME
 			figlet "Stage: ${env.STAGE}"
@@ -48,6 +50,8 @@ def call(String PipeLineType){
 				]]
 		}
 	} else {
+		figlet "Delivery Continuo"
+
         	stage('NexusDownload') {
 		    	env.STAGE=env.STAGE_NAME
 			figlet "Stage: ${env.STAGE}"
