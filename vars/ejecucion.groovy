@@ -21,8 +21,10 @@ def call(){
 						env.STAGE = null
 						env.PSTAGE = null
 						if (params.stage.length() == 0) { 
+							println "Todo"
 							if (params.buildTool == "gradle") { gradle() } else { maven() }
 						} else {
+							println "Selectivo"
 							def stages = params.stage.split(";")
 							for (i=0; i < stages.size(); i++) { 
 	    							env.PSTAGE = stages[i]
