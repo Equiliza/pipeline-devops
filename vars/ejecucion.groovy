@@ -65,7 +65,7 @@ def call(){
 
 }
 
-def veryBranchName() {
+def verifyBranchName() {
 
 	//def is_ci_or_cd = ( env.GIT_BRANCH.contains('feature-')) ? 'CI' : 'CD'
 
