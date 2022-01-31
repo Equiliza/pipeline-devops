@@ -38,7 +38,7 @@ def call(){
 		post {
 			success {
                 		script {
-					if ((env.STAGE == null && env.PSTAGE != null) { 
+					if (env.STAGE == null && env.PSTAGE != null) { 
 						slackSend color: 'danger', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución fallida en stage ${env.PSTAGE}"
 						error "Ejecución fallida en stage ${env.PSTAGE}"
 					} else {
