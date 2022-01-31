@@ -11,6 +11,7 @@ def call(){
 	
     		parameters {
   			choice choices: ['gradle', 'maven'], description: 'Indicar Herramienta de Construcción', name: 'buildTool'
+    		}
 	
     		stages {
         		stage('PipeLine') {
