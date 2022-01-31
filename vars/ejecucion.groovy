@@ -18,7 +18,6 @@ def call(){
         		stage('PipeLine') {
             			steps {
                 			script {
-
 						
 						if (params.stage.length() == 0) { 
 							println "Todo"
@@ -68,7 +67,7 @@ def call(){
 
 		//def is_ci_or_cd = ( env.GIT_BRANCH.contains('feature-')) ? 'CI' : 'CD'
 
-		if (env.GIT_BRANCH.contains('feature-') || (env.GIT_BRANCH.contains('develop')) {
+		if (env.GIT_BRANCH.contains('feature-') || env.GIT_BRANCH.contains('develop')) {
 			return 'CI'
 		} else {
 			return 'CD'
