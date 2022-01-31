@@ -18,20 +18,19 @@ def call(){
         		stage('PipeLine') {
             			steps {
                 			script {
-						env.STAGE = null
-						env.PSTAGE = null
 						if (params.stage.length() == 0) { 
 							println "Todo"
+							env.STAGE = "NOK"
 	    						env.PSTAGE = "Todo"
 							if (params.buildTool == "gradle") { gradle() } else { maven() }
 						} else {
 							println "Selectivo"
 							def stages = params.stage.split(";")
 							for (i=0; i < stages.size(); i++) { 
-								env.STAGE = null
+								env.STAGE = "NOK"
 	    							env.PSTAGE = stages[i]
 								if (params.buildTool == "gradle") { gradle() } else { maven() }
-								if (env.STAGE == null) { break } 
+								if (env.STAGE == 'NOK') { break } 
 							}
 						}
                 			}
@@ -42,7 +41,7 @@ def call(){
 		post {
 			success {
                 		script {
-					if (env.STAGE == null && env.PSTAGE != 'Todo') { 
+					if (env.STAGE == 'NOK' && env.PSTAGE != 'Todo') { 
 						slackSend color: 'danger', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución fallida en stage ${env.PSTAGE}"
 						error "Ejecución fallida en stage ${env.PSTAGE}"
 					} else {
