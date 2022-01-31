@@ -18,18 +18,20 @@ def call(){
         		stage('PipeLine') {
             			steps {
                 			script {
+
+						
 						if (params.stage.length() == 0) { 
 							println "Todo"
 							env.STAGE = "NOK"
 	    						env.PSTAGE = "Todo"
-							if (params.buildTool == "gradle") { gradle() } else { maven() }
+							if (params.buildTool == "gradle") { gradle(verifyBranchName()) } else { maven(verifyBranchName()) }
 						} else {
 							println "Selectivo"
 							def stages = params.stage.split(";")
 							for (i=0; i < stages.size(); i++) { 
 								env.STAGE = "NOK"
 	    							env.PSTAGE = stages[i]
-								if (params.buildTool == "gradle") { gradle() } else { maven() }
+								if (params.buildTool == "gradle") { gradle(verifyBranchName()) } else { maven(verifyBranchName()) }
 								if (env.STAGE == 'NOK') { break } 
 							}
 						}
@@ -59,6 +61,17 @@ def call(){
 					}
 				}
 			}
+		}
+	}
+
+	def veryBranchName() {
+
+		//def is_ci_or_cd = ( env.GIT_BRANCH.contains('feature-')) ? 'CI' : 'CD'
+
+		if (env.GIT_BRANCH.contains('feature-') || (env.GIT_BRANCH.contains('develop')) {
+			return 'CI'
+		} else {
+			return 'CD'
 		}
 	}
 

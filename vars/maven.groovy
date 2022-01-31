@@ -4,7 +4,9 @@
 	ejecucion.call()
 */
 
-def call(){
+def call(String PipeLineType){
+
+	figlet PipeLineType
   
         stage('Build') {
 		if (env.PSTAGE == env.STAGE_NAME || env.PSTAGE == 'Todo') {
