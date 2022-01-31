@@ -22,6 +22,7 @@ def call(){
 						env.PSTAGE = null
 						if (params.stage.length() == 0) { 
 							println "Todo"
+	    						env.PSTAGE = "Todo"
 							if (params.buildTool == "gradle") { gradle() } else { maven() }
 						} else {
 							println "Selectivo"
@@ -40,7 +41,7 @@ def call(){
 		post {
 			success {
                 		script {
-					if (env.STAGE == null && env.PSTAGE != null) { 
+					if (env.STAGE == null && env.PSTAGE != "Todo") { 
 						slackSend color: 'danger', message: "[${env.BUILD_USER}][${env.USUARIO}][${env.JOB_NAME}][${params.buildTool}] Ejecución fallida en stage ${env.PSTAGE}"
 						error "Ejecución fallida en stage ${env.PSTAGE}"
 					} else {
