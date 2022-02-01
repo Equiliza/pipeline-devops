@@ -6,7 +6,7 @@
 
 def call(String PipeLineType){
 
-	figlet "Maven"
+	figlet "Gradel"
 
 	if (PipeLineType == 'CI') {
 		figlet "Integracion Continua"
